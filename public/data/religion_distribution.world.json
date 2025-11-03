@@ -1,0 +1,11 @@
+[
+  { "country": "USA", "year": 2000, "religion": "Christianity", "shareIndex": 63.2 },
+  { "country": "USA", "year": 2000, "religion": "Atheist", "shareIndex": 5.0 },
+  { "country": "USA", "year": 2010, "religion": "Christianity", "shareIndex": 60.1 },
+  { "country": "USA", "year": 2010, "religion": "Atheist", "shareIndex": 6.2 },
+
+  { "country": "NZL", "year": 2000, "religion": "Christianity", "shareIndex": 50.0 },
+  { "country": "NZL", "year": 2000, "religion": "Agnostic", "shareIndex": 15.0 },
+  { "country": "NZL", "year": 2010, "religion": "Christianity", "shareIndex": 47.5 },
+  { "country": "NZL", "year": 2010, "religion": "Agnostic", "shareIndex": 18.0 }
+]
