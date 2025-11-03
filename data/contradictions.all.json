@@ -1,0 +1,5 @@
+﻿[
+  {"id":"c001","topic":"Creation order","verseA":{"ref":"Genesis 1:24-27","book":"Genesis","canon":"Bible"},"verseB":{"ref":"Genesis 2:18-19","book":"Genesis","canon":"Bible"},"summary":"Humans after animals vs man before animals.","detail":"Genesis 1 sequences animals→humans; Genesis 2 narrates man then animals brought to him."},
+  {"id":"c002","topic":"Seeing God","verseA":{"ref":"Exodus 33:20","book":"Exodus","canon":"Bible"},"verseB":{"ref":"Genesis 32:30","book":"Genesis","canon":"Bible"},"summary":"No one can see God and live vs Jacob saw God face to face.","detail":"Theophany vs general doctrinal prohibition."},
+  {"id":"c003","topic":"Resurrection witnesses","verseA":{"ref":"Matthew 28:1-10","book":"Matthew","canon":"Bible"},"verseB":{"ref":"John 20:1-18","book":"John","canon":"Bible"},"summary":"Who arrived first and what they saw differs.","detail":"Sequence, number of women, angels vs men in white, and wording vary by account."}
+]
