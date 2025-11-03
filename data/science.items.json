@@ -1,0 +1,22 @@
+﻿{
+    "id":  "seed-s1",
+    "observations":  [
+                         "Ice cores \u003e10k yrs",
+                         "Tree rings continuous"
+                     ],
+    "why":  [
+                "Hull limits",
+                "Inbreeding issues",
+                "Salinity shock"
+            ],
+    "story":  "Noah\u0027s Ark and global flood",
+    "refs":  [
+                 "Genesis 6-9"
+             ],
+    "summary":  "Ark houses all kinds.",
+    "laws":  [
+                 "Ship structure",
+                 "Population genetics",
+                 "Marine salinity"
+             ]
+}

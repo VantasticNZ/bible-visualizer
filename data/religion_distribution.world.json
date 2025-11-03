@@ -1,9 +1,14 @@
 ﻿[
-  {"country":"United States","year":1900,"religion":"Christianity","shareIndex":0.96},
-  {"country":"United States","year":2020,"religion":"Christianity","shareIndex":0.64},
-  {"country":"United States","year":2020,"religion":"Unaffiliated","shareIndex":0.30},
-  {"country":"India","year":2020,"religion":"Hinduism","shareIndex":0.79},
-  {"country":"India","year":2020,"religion":"Islam","shareIndex":0.14},
-  {"country":"China","year":2020,"religion":"Unaffiliated","shareIndex":0.52},
-  {"country":"China","year":2020,"religion":"Buddhism","shareIndex":0.18}
+    {
+        "religion":  "Hinduism",
+        "shareIndex":  0.79,
+        "year":  2010,
+        "country":  "India"
+    },
+    {
+        "religion":  "Christianity",
+        "shareIndex":  0.7,
+        "year":  2010,
+        "country":  "USA"
+    }
 ]

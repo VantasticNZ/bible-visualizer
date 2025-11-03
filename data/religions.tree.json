@@ -1,0 +1,63 @@
+﻿[
+    {
+        "name":  "Christianity",
+        "text":  "Bible",
+        "subgroups":  [
+                          {
+                              "adherentsM":  1300,
+                              "name":  "Catholic"
+                          },
+                          {
+                              "adherentsM":  900,
+                              "name":  "Protestant"
+                          },
+                          {
+                              "adherentsM":  260,
+                              "name":  "Orthodox"
+                          }
+                      ],
+        "family":  "Abrahamic",
+        "adherentsM":  2400,
+        "coreTenets":  [
+                           "Trinity",
+                           "Incarnation",
+                           "Grace/Faith",
+                           "Resurrection"
+                       ]
+    },
+    {
+        "name":  "Islam",
+        "text":  "Quran",
+        "subgroups":  [
+                          {
+                              "adherentsM":  1600,
+                              "name":  "Sunni"
+                          },
+                          {
+                              "adherentsM":  250,
+                              "name":  "Shia"
+                          }
+                      ],
+        "family":  "Abrahamic",
+        "adherentsM":  1900,
+        "coreTenets":  [
+                           "Tawhid",
+                           "Prophethood",
+                           "Five Pillars"
+                       ]
+    },
+    {
+        "name":  "LDS",
+        "text":  "Bible \u0026 Book of Mormon",
+        "subgroups":  [
+
+                      ],
+        "family":  "Restorationist",
+        "adherentsM":  17,
+        "coreTenets":  [
+                           "Restoration",
+                           "Additional scripture",
+                           "Ordinances"
+                       ]
+    }
+]
