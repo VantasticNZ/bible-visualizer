@@ -1,11 +1,9 @@
-[
-  { "country": "USA", "year": 2000, "religion": "Christianity", "shareIndex": 63.2 },
-  { "country": "USA", "year": 2000, "religion": "Atheist", "shareIndex": 5.0 },
-  { "country": "USA", "year": 2010, "religion": "Christianity", "shareIndex": 60.1 },
-  { "country": "USA", "year": 2010, "religion": "Atheist", "shareIndex": 6.2 },
-
-  { "country": "NZL", "year": 2000, "religion": "Christianity", "shareIndex": 50.0 },
-  { "country": "NZL", "year": 2000, "religion": "Agnostic", "shareIndex": 15.0 },
-  { "country": "NZL", "year": 2010, "religion": "Christianity", "shareIndex": 47.5 },
-  { "country": "NZL", "year": 2010, "religion": "Agnostic", "shareIndex": 18.0 }
+﻿[
+  {"country":"United States","year":1900,"religion":"Christianity","shareIndex":0.96},
+  {"country":"United States","year":2020,"religion":"Christianity","shareIndex":0.64},
+  {"country":"United States","year":2020,"religion":"Unaffiliated","shareIndex":0.30},
+  {"country":"India","year":2020,"religion":"Hinduism","shareIndex":0.79},
+  {"country":"India","year":2020,"religion":"Islam","shareIndex":0.14},
+  {"country":"China","year":2020,"religion":"Unaffiliated","shareIndex":0.52},
+  {"country":"China","year":2020,"religion":"Buddhism","shareIndex":0.18}
 ]

@@ -1,0 +1,19 @@
+﻿[
+  {"name":"Christianity","family":"Abrahamic","text":"Bible","coreTenets":["Trinity","Incarnation","Grace/Faith","Resurrection"],"adherentsM":2400,"subgroups":[{"name":"Catholic","adherentsM":1300},{"name":"Protestant","adherentsM":900},{"name":"Orthodox","adherentsM":260}]},
+  {"name":"Islam","family":"Abrahamic","text":"Quran","coreTenets":["Tawhid","Prophethood","Five Pillars"],"adherentsM":1900,"subgroups":[{"name":"Sunni","adherentsM":1600},{"name":"Shia","adherentsM":250}]},
+  {"name":"Judaism","family":"Abrahamic","text":"Tanakh/Talmud","coreTenets":["Shema","Torah","Covenant"],"adherentsM":15,"subgroups":[{"name":"Orthodox"},{"name":"Conservative"},{"name":"Reform"}]},
+  {"name":"Latter-day Saint (LDS)","family":"Restorationist","text":"Bible & Book of Mormon","coreTenets":["Restoration","Additional scripture","Ordinances"],"adherentsM":17,"subgroups":[]},
+  {"name":"FLDS","family":"Restorationist","text":"Bible & Book of Mormon","coreTenets":["Fundamentalist LDS","Plural marriage (historic)"],"adherentsM":0.1,"subgroups":[]},
+  {"name":"Satanism (various)","family":"NRM","text":"Various","coreTenets":["LaVeyan individualism","TST secular advocacy"],"adherentsM":0.2,"subgroups":[{"name":"LaVeyan"},{"name":"The Satanic Temple"}]},
+  {"name":"Hinduism","family":"Dharmic","text":"Vedas/Upanishads","coreTenets":["Dharma","Karma","Samsara","Moksha"],"adherentsM":1200,"subgroups":[{"name":"Vaishnavism"},{"name":"Shaivism"},{"name":"Shaktism"}]},
+  {"name":"Buddhism","family":"Dharmic","text":"Tripitaka/various","coreTenets":["Four Noble Truths","Eightfold Path","Anatta"],"adherentsM":500,"subgroups":[{"name":"Theravada"},{"name":"Mahayana"},{"name":"Vajrayana"}]},
+  {"name":"Sikhism","family":"Dharmic","text":"Guru Granth Sahib","coreTenets":["Ik Onkar","Seva","Kirat Karni"],"adherentsM":26,"subgroups":[]},
+  {"name":"Jainism","family":"Dharmic","text":"Agamas","coreTenets":["Ahimsa","Anekantavada","Aparigraha"],"adherentsM":4,"subgroups":[]},
+  {"name":"Shinto","family":"East Asian","text":"Kojiki/Nihon Shoki","coreTenets":["Kami","Ritual purity"],"adherentsM":100,"subgroups":[]},
+  {"name":"Taoism","family":"East Asian","text":"Tao Te Ching/Zhuangzi","coreTenets":["Dao","Wu-wei","Ziran"],"adherentsM":12,"subgroups":[]},
+  {"name":"Indigenous/Folk","family":"Various","text":"Oral traditions","coreTenets":["Ancestral veneration","Local deities"],"adherentsM":400,"subgroups":[]},
+  {"name":"Atheist","family":"Unaffiliated","text":"-","coreTenets":["No deity"],"adherentsM":450,"subgroups":[]},
+  {"name":"Agnostic","family":"Unaffiliated","text":"-","coreTenets":["Knowledge uncertain"],"adherentsM":600,"subgroups":[]},
+  {"name":"Spiritual (not religious)","family":"Unaffiliated","text":"-","coreTenets":["Personal spirituality"],"adherentsM":300,"subgroups":[]},
+  {"name":"Jedi (self-identified)","family":"Novelty","text":"-","coreTenets":["Pop-culture identity"],"adherentsM":0.5,"subgroups":[]}
+]
