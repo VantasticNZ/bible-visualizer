@@ -1,35 +1,26 @@
 ﻿import React, { useEffect, useMemo, useRef, useState, createContext, useContext } from "react";
 
 /* 
-  Data loading priority per dataset:
-  1) public/data/*.json  (auto-load on startup; best for “always present” data on GitHub Pages)
-  2) seeds in this file (fallback to keep the app working)
+  Permanent data embedding:
+  Put JSON files under src/data/ and import them below. They’ll be bundled into your build,
+  so the app works offline and on GitHub Pages with no uploads.
 
-  Files the app will try to read (if present):
-  - public/data/contradictions.all.json
-  - public/data/religion_distribution.world.json
-  - public/data/world.geo.json            <-- GeoJSON FeatureCollection (countries)
-  - public/data/legal_cases.template.json
+  Required files (create them in src/data):
+  - contradictions.all.json                // array of contradictions
+  - religion_distribution.world.json       // array {country,year,religion,shareIndex}
+  - world.geo.json                         // GeoJSON FeatureCollection (countries)
+  - legal_cases.json                       // array of legal case rows
 */
 
-/* ============================== SEEDS (fallbacks) ============================== */
+import EMBED_CONTRADICTIONS from "./data/contradictions.all.json";
+import EMBED_RELIGION_DIST from "./data/religion_distribution.world.json";
+import EMBED_LEGAL_CASES from "./data/legal_cases.json";
+import WORLD_GEO from "./data/world.geo.json";
+
+/* ============================== SEEDS (fallbacks if files are tiny) ============================== */
 const CONTRADICTIONS_SEED = [
-  {
-    id: "c1",
-    topic: "Creation order",
-    verseA: { ref: "Genesis 1:24-27", book: "Genesis", canon: "Bible" },
-    verseB: { ref: "Genesis 2:18-19", book: "Genesis", canon: "Bible" },
-    summary: "Humans after animals vs man before animals.",
-    detail: "Genesis 1 sequences animals→humans; Genesis 2 narrates man then animals brought to him."
-  },
-  {
-    id: "c2",
-    topic: "Seeing God",
-    verseA: { ref: "Exodus 33:20", book: "Exodus", canon: "Bible" },
-    verseB: { ref: "Genesis 32:30", book: "Genesis", canon: "Bible" },
-    summary: "No one can see God and live vs Jacob saw God face to face.",
-    detail: "Theophany vs prohibition in doctrinal claim."
-  }
+  { id: "c1", topic: "Creation order", verseA: { ref: "Genesis 1:24-27", book: "Genesis", canon: "Bible" }, verseB: { ref: "Genesis 2:18-19", book: "Genesis", canon: "Bible" }, summary: "Humans after animals vs man before animals.", detail: "Genesis 1: animals→humans; Genesis 2: man then animals are brought forth." },
+  { id: "c2", topic: "Seeing God", verseA: { ref: "Exodus 33:20", book: "Exodus", canon: "Bible" }, verseB: { ref: "Genesis 32:30", book: "Genesis", canon: "Bible" }, summary: "No one can see God and live vs Jacob saw God face to face.", detail: "Theophany vs doctrinal prohibition." }
 ];
 
 const IMMORALITY_SEED = [
@@ -38,44 +29,20 @@ const IMMORALITY_SEED = [
 ];
 
 const SCIENCE_ITEMS = [
-  {
-    id: "s1",
-    story: "Noah's Ark and global flood",
-    refs: ["Genesis 6-9"],
-    summary: "Deluge + wooden ark houses all kinds.",
-    mechanisms: {
-      laws: ["Ship structure limits", "Population genetics", "Marine salinity"],
-      why: [
-        "Large timber hulls need modern bracing.",
-        "Pairs cause extreme inbreeding depression.",
-        "Mixing fresh/saltwater & sediment harms marine life."
-      ],
-      observations: ["Ice cores & tree rings continuous >10k years.", "Stratigraphy inconsistent with global one-year layer."]
-    }
-  },
-  {
-    id: "s2",
-    story: "Joshua's long day",
-    refs: ["Joshua 10:12-14"],
-    summary: "Sun/Moon stand still.",
-    mechanisms: {
-      laws: ["Angular momentum"],
-      why: ["Stopping Earth's rotation releases ~2.6e29 J."],
-      observations: ["No global synchronised records."]
-    }
-  }
+  { id: "s1", story: "Noah's Ark and global flood", refs: ["Genesis 6-9"], summary: "Deluge + wooden ark houses all kinds.", mechanisms: { laws: ["Ship structure limits", "Population genetics", "Marine salinity"], why: ["Large timber hulls need modern bracing.", "Pairs cause extreme inbreeding depression.", "Fresh/saltwater & sediment stress marine life."], observations: ["Ice cores & tree rings continuous >10k years.", "Stratigraphy inconsistent with a one-year global flood."] } },
+  { id: "s2", story: "Joshua's long day", refs: ["Joshua 10:12-14"], summary: "Sun/Moon stand still.", mechanisms: { laws: ["Angular momentum"], why: ["Stopping Earth’s rotation releases ~2.6e29 J."], observations: ["No global synchronized records."] } }
 ];
 
 const RELIGION_TREE = [
-  { name: "Christianity", family: "Abrahamic", text: "Bible", coreTenets: ["Trinity", "Incarnation", "Grace/Faith", "Resurrection"], adherentsM: 2400, subgroups: [ { name: "Catholic", adherentsM: 1300 }, { name: "Protestant", adherentsM: 900 }, { name: "Orthodox", adherentsM: 260 } ] },
-  { name: "Islam", family: "Abrahamic", text: "Quran", coreTenets: ["Tawhid", "Prophethood", "Five Pillars"], adherentsM: 1900, subgroups: [ { name: "Sunni", adherentsM: 1600 }, { name: "Shia", adherentsM: 250 } ] },
+  { name: "Christianity", family: "Abrahamic", text: "Bible", coreTenets: ["Trinity","Incarnation","Grace/Faith","Resurrection"], adherentsM: 2400, subgroups: [{name:"Catholic",adherentsM:1300},{name:"Protestant",adherentsM:900},{name:"Orthodox",adherentsM:260}] },
+  { name: "Islam", family: "Abrahamic", text: "Quran", coreTenets: ["Tawhid","Prophethood","Five Pillars"], adherentsM: 1900, subgroups: [{name:"Sunni",adherentsM:1600},{name:"Shia",adherentsM:250}] },
   { name: "Latter-day Saint (LDS)", family: "Restorationist", text: "Bible & Book of Mormon", coreTenets: ["Restoration","Additional scripture","Ordinances"], adherentsM: 17, subgroups: [] },
   { name: "FLDS", family: "Restorationist", text: "Bible & Book of Mormon", coreTenets: ["Fundamentalist LDS offshoot","Plural marriage (historic)","Prophetic leadership"], adherentsM: 0.1, subgroups: [] },
-  { name: "Satanism (various)", family: "NRM", text: "Various", coreTenets: ["LaVeyan individualism","TST secular advocacy"], adherentsM: 0.2, subgroups: [{ name:"LaVeyan", adherentsM:0.1},{ name:"The Satanic Temple", adherentsM:0.1}] },
+  { name: "Satanism (various)", family: "NRM", text: "Various", coreTenets: ["LaVeyan individualism","TST secular advocacy"], adherentsM: 0.2, subgroups: [{name:"LaVeyan",adherentsM:0.1},{name:"The Satanic Temple",adherentsM:0.1}] },
   { name: "Atheist", family: "Unaffiliated", text: "-", coreTenets: ["No deity"], adherentsM: 450, subgroups: [] },
   { name: "Agnostic", family: "Unaffiliated", text: "-", coreTenets: ["Knowledge uncertain"], adherentsM: 600, subgroups: [] },
   { name: "Spiritual (not religious)", family: "Unaffiliated", text: "-", coreTenets: ["Personal spirituality"], adherentsM: 300, subgroups: [] },
-  { name: "Jedi (self-identified)", family: "Novelty", text: "-", coreTenets: ["Pop-culture identity"], adherentsM: 0.5, subgroups: [] },
+  { name: "Jedi (self-identified)", family: "Novelty", text: "-", coreTenets: ["Pop-culture identity"], adherentsM: 0.5, subgroups: [] }
 ];
 
 /* ============================== HELPERS ============================== */
@@ -86,15 +53,6 @@ const BOOK_ORDER = [
 ];
 function bookIndex(book) { const i = BOOK_ORDER.indexOf(book); return i >= 0 ? i : 9999; }
 function relationOf(row) { const a = row.verseA?.canon || "Bible"; const b = row.verseB?.canon || "Bible"; return a === b ? a : "Cross"; }
-function isAdmin() {
-  try {
-    const qp = new URLSearchParams(window.location.search);
-    if (qp.get("admin") === "1") { localStorage.setItem("viz_admin", "1"); return true; }
-    if (localStorage.getItem("viz_admin") === "1") return true;
-    if (process.env.REACT_APP_ADMIN === "1") return true;
-  } catch {}
-  return false;
-}
 
 /* ============================== GLOBAL DATA CONTEXT ============================== */
 const DataCtx = createContext(null);
@@ -102,36 +60,15 @@ function useData(){ return useContext(DataCtx); }
 
 /* ============================== APP ============================== */
 export default function App() {
+  // permanently embedded datasets
+  const contradictions = useMemo(() => sanitizeContradictions(EMBED_CONTRADICTIONS?.length ? EMBED_CONTRADICTIONS : CONTRADICTIONS_SEED), []);
+  const religionDist = useMemo(() => Array.isArray(EMBED_RELIGION_DIST) ? EMBED_RELIGION_DIST : [], []);
+  const legalCases = useMemo(() => Array.isArray(EMBED_LEGAL_CASES) ? EMBED_LEGAL_CASES : [], []);
+  const worldGeo = useMemo(() => WORLD_GEO, []);
+
+  const ctx = { contradictions, religionDist, legalCases, worldGeo };
+
   const [view, setView] = useState("network");
-
-  // Global datasets
-  const [contradictions, setContradictions] = useState(CONTRADICTIONS_SEED);
-  const [religionDist, setReligionDist] = useState([]); // {country, year, religion, shareIndex}
-  const [legalCases, setLegalCases] = useState([]);
-
-  // Auto-load contradictions
-  useEffect(()=>{ (async ()=>{
-    try{
-      const r = await fetch(process.env.PUBLIC_URL + "/data/contradictions.all.json", { cache:"no-store" });
-      if(r.ok){ const arr = await r.json(); if(Array.isArray(arr)&&arr.length) setContradictions(sanitizeContradictions(arr)); }
-    }catch{}
-  })(); },[]);
-  // Auto-load dist
-  useEffect(()=>{ (async ()=>{
-    try{
-      const r = await fetch(process.env.PUBLIC_URL + "/data/religion_distribution.world.json", { cache:"no-store" });
-      if(r.ok){ const arr = await r.json(); if(Array.isArray(arr)) setReligionDist(arr); }
-    }catch{}
-  })(); },[]);
-  // Auto-load legal
-  useEffect(()=>{ (async ()=>{
-    try{
-      const r = await fetch(process.env.PUBLIC_URL + "/data/legal_cases.template.json", { cache:"no-store" });
-      if(r.ok){ const arr = await r.json(); if(Array.isArray(arr)) setLegalCases(arr); }
-    }catch{}
-  })(); },[]);
-
-  const ctx = { contradictions, setContradictions, religionDist, setReligionDist, legalCases, setLegalCases };
 
   return (
     <DataCtx.Provider value={ctx}>
@@ -204,16 +141,14 @@ function Card({ title, children, right }) {
 function Footer() {
   return (
     <footer className="text-xs text-slate-500 max-w-7xl mx-auto px-4 pb-6">
-      <div className="mt-2">
-        Data loads from <code>public/data</code> if present, otherwise seeds. Use <code>?admin=1</code> (once) to unlock import buttons.
-      </div>
+      <div className="mt-2">This build ships with embedded datasets (no uploads needed).</div>
     </footer>
   );
 }
 
 /* ============================== NETWORK VIEW ============================== */
 function NetworkView() {
-  const { contradictions, setContradictions } = useData();
+  const { contradictions } = useData();
   const [q, setQ] = useState("");
   const [topicFilter, setTopicFilter] = useState("all");
   const [corpus, setCorpus] = useState("all"); // all|Bible|BoM|Cross
@@ -302,18 +237,6 @@ function NetworkView() {
 
   const topics = useMemo(() => Array.from(new Set(contradictions.map(r=>r.topic))).sort(), [contradictions]);
 
-  function onImport(e) {
-    if (!isAdmin()) return;
-    const f = e.target.files[0]; if (!f) return; const r = new FileReader();
-    r.onload = (ev) => { try {
-      const arr = JSON.parse(ev.target.result);
-      if (!Array.isArray(arr)) throw new Error("JSON must be an array");
-      setContradictions(sanitizeContradictions(arr));
-      alert("Imported " + arr.length + " rows.");
-    } catch (err) { alert("Parse error: " + err.message); } };
-    r.readAsText(f);
-  }
-
   return (
     <Card
       title="Contradictions Network"
@@ -336,7 +259,6 @@ function NetworkView() {
             <option value="NT">NT</option>
             <option value="BoM">BoM</option>
           </select>
-          {isAdmin() && (<input type="file" accept="application/json" onChange={onImport} title="Import contradictions JSON" />)}
         </div>
       }
     >
@@ -578,10 +500,10 @@ function ScienceView(){
   );
 }
 
-/* ============================== RELIGIONS VIEW (choropleth, legend, tooltips) ============================== */
+/* ============================== RELIGIONS VIEW (choropleth) ============================== */
 function ReligionsView(){
   const [tree] = useState(RELIGION_TREE);
-  const { religionDist, setReligionDist } = useData();
+  const { religionDist, worldGeo } = useData();
 
   const [selectedReligion, setSelectedReligion] = useState("All");
 
@@ -592,56 +514,28 @@ function ReligionsView(){
   const [year, setYear] = useState(years[0]);
   useEffect(()=>{ if(years.length) setYear(years[0]); },[years]);
 
-  function onImportDist(e){
-    if(!isAdmin()) return;
-    const f = e.target.files[0]; if(!f) return; const r = new FileReader();
-    r.onload = (ev)=>{ try{ const arr = JSON.parse(ev.target.result); if(Array.isArray(arr)) { setReligionDist(arr); alert("Distribution rows: "+arr.length); } else { throw new Error("Expected array"); } } catch(err){ alert("Parse error: "+err.message); } };
-    r.readAsText(f);
-  }
-
-  // Geo load (must be GeoJSON FeatureCollection)
   const hostRef = useRef(null);
   const tooltipRef = useRef(null);
-  const [geoError, setGeoError] = useState("");
-  const [geo, setGeo] = useState(null);
-  useEffect(()=>{ (async ()=>{
-    try{
-      const r = await fetch(process.env.PUBLIC_URL + "/data/world.geo.json", { cache:"no-store" });
-      if(!r.ok){ setGeoError("Could not fetch /data/world.geo.json (place it under public/data)."); return; }
-      const gj = await r.json();
-      if (gj?.type !== "FeatureCollection" || !Array.isArray(gj.features)) {
-        setGeoError("world.geo.json must be a GeoJSON FeatureCollection with a 'features' array.");
-        setGeo(null);
-        return;
-      }
-      setGeo(gj);
-      setGeoError("");
-    } catch(e){ setGeoError("Failed to load world.geo.json: " + e.message); setGeo(null); }
-  })(); },[]);
 
-  // draw map
   useEffect(()=>{
     let cancelled=false;
-    if(!geo){ return; }
+    if(!worldGeo) return;
     import("d3").then(d3=>{
       if(cancelled) return;
       const el=hostRef.current; if(!el) return;
 
       const width = el.clientWidth||960, height=480;
-
-      const root=d3.select(el); root.selectAll("svg").remove();
-      const svg=root.append("svg").attr("width","100%").attr("height",height).attr("viewBox",`0 0 ${width} ${height}`);
+      const svgSel = d3.select(el); svgSel.selectAll("svg").remove();
+      const svg = svgSel.append("svg").attr("width","100%").attr("height",height).attr("viewBox",`0 0 ${width} ${height}`);
       const g=svg.append("g");
 
-      // Projection & path
-      const projection = d3.geoNaturalEarth1().fitSize([width, height], geo);
+      const projection = d3.geoNaturalEarth1().fitSize([width, height], worldGeo);
       const path = d3.geoPath(projection);
 
-      // Graticule for visual detail
       const graticule = d3.geoGraticule();
       g.append("path").attr("d", path(graticule())).attr("fill","none").attr("stroke","#e2e8f0").attr("stroke-width",0.6);
 
-      // Prepare data lookup for this year + religion
+      // Prep data
       const rows = religionDist.filter(d=> +d.year === +year && (selectedReligion==="All" || d.religion===selectedReligion));
       const byCountry = new Map();
       rows.forEach(d=>{
@@ -650,12 +544,10 @@ function ReligionsView(){
         byCountry.set(key, (byCountry.get(key)||0) + (Number.isFinite(val) ? val : 0));
       });
 
-      // Scale: quantize for better legend/ticks
       const values = Array.from(byCountry.values());
       const maxVal = values.length ? Math.max(...values, 1) : 1;
       const color = d3.scaleQuantize().domain([0, maxVal]).range(d3.schemeBlues[7]);
 
-      // Zoom/pan + reset
       const zoom = d3.zoom().scaleExtent([0.9, 12]).on("zoom", (ev)=> g.attr("transform", ev.transform));
       svg.call(zoom);
       const resetBtn = svg.append("g").attr("transform", `translate(${width-90},${20})`).style("cursor","pointer");
@@ -663,15 +555,11 @@ function ReligionsView(){
       resetBtn.append("text").attr("x",35).attr("y",16).attr("text-anchor","middle").attr("fill","white").attr("font-size",12).text("Reset");
       resetBtn.on("click", ()=> svg.transition().duration(250).call(zoom.transform, d3.zoomIdentity));
 
-      // Tooltip div
       const tdiv = d3.select(tooltipRef.current);
-      function showTip(html, x, y){
-        tdiv.style("opacity", 1).style("left", (x+10)+"px").style("top",(y+10)+"px").html(html);
-      }
-      function hideTip(){ tdiv.style("opacity", 0); }
+      function showTip(html, x, y){ tdiv.style("opacity",1).style("left",(x+10)+"px").style("top",(y+10)+"px").html(html); }
+      function hideTip(){ tdiv.style("opacity",0); }
 
-      // Draw countries
-      const features = geo.features || [];
+      const features = worldGeo.features || [];
       g.selectAll("path.country").data(features).join("path")
         .attr("class","country")
         .attr("d", path)
@@ -691,9 +579,8 @@ function ReligionsView(){
           const byName = byCountry.get(name.toUpperCase());
           const val = byIso ?? byName ?? 0;
           const totalAll = (selectedReligion!=="All")
-            ? // how much of *any* religion in this country this year (sum all rows)
-              (religionDist.filter(d=>+d.year===+year && (String(d.country||"").toUpperCase()===iso || String(d.country||"").toUpperCase()===name.toUpperCase()))
-               .reduce((acc,d)=> acc+(Number(d.shareIndex)||0),0))
+            ? (religionDist.filter(r=> +r.year===+year && (String(r.country||"").toUpperCase()===iso || String(r.country||"").toUpperCase()===name.toUpperCase()))
+               .reduce((acc,r)=> acc+(Number(r.shareIndex)||0),0))
             : val;
           const html = `
             <div style="font-weight:600;">${name}</div>
@@ -705,37 +592,31 @@ function ReligionsView(){
         })
         .on("mouseleave", hideTip);
 
-      // Legend with ticks
       const legendW=180, legendH=10, legendSteps = color.range().length;
       const legendX = d3.scaleLinear().domain(color.domain()).range([0, legendW]);
       const legendG = svg.append("g").attr("transform",`translate(${width-legendW-18},${height-34})`);
-      // gradient blocks
       const stepW = legendW / legendSteps;
       color.range().forEach((col, i)=>{
         legendG.append("rect").attr("x", i*stepW).attr("y", 0).attr("width", stepW+0.1).attr("height", legendH).attr("fill", col).attr("stroke","#94a3b8").attr("stroke-width",0.3);
       });
-      // axis
       const axis = d3.axisBottom(legendX).ticks(5).tickSize(4);
       legendG.append("g").attr("transform",`translate(0,${legendH})`).call(axis).selectAll("text").attr("font-size",10);
       legendG.append("text").text("Share index").attr("font-size",10).attr("y",-4);
-
     });
     return ()=>{ cancelled=true; };
-  },[geo, religionDist, year, selectedReligion]);
+  },[worldGeo, religionDist, year, selectedReligion]);
+
+  const religionsList = useMemo(()=> Array.from(new Set(religionDist.map(d=>d.religion))).sort(), [religionDist]);
 
   return (
     <Card
       title="World Religions"
-      right={
-        <div className="flex flex-wrap items-center gap-2 text-sm">
-          {isAdmin() && <input type="file" accept="application/json" onChange={onImportDist} title="Import distribution JSON" />}
-        </div>
-      }
+      right={<div />}
     >
       <div className="grid lg:grid-cols-2 gap-4">
         <div className="border rounded-lg p-3">
           <div className="font-semibold mb-2">Main branches (expandable)</div>
-          <ExpandableTree data={tree} />
+          <ExpandableTree data={RELIGION_TREE} />
         </div>
         <div className="border rounded-lg p-0">
           <div className="flex flex-wrap items-center justify-between gap-3 p-3 border-b">
@@ -744,7 +625,7 @@ function ReligionsView(){
               <label className="text-sm">Religion</label>
               <select value={selectedReligion} onChange={e=>setSelectedReligion(e.target.value)} className="border rounded p-1">
                 <option value="All">All</option>
-                {Array.from(new Set(religionDist.map(d=>d.religion))).sort().map(r=> <option key={r} value={r}>{r}</option>)}
+                {religionsList.map(r=> <option key={r} value={r}>{r}</option>)}
               </select>
               <label className="text-sm">Year</label>
               <input type="range" min={years[0]} max={years[years.length-1]} value={year} onChange={e=>setYear(+e.target.value)} />
@@ -752,15 +633,11 @@ function ReligionsView(){
             </div>
           </div>
           <div className="relative">
-            {geoError && <div className="text-xs text-red-600 m-3">{geoError}</div>}
-            {(!religionDist || religionDist.length===0) && (
-              <div className="text-xs text-amber-700 m-3">No distribution data loaded yet. Add <code>public/data/religion_distribution.world.json</code> to color the map.</div>
-            )}
             <div ref={hostRef} className="w-full h-[480px] border rounded-xl overflow-hidden bg-white" />
             <div ref={tooltipRef}
                  style={{position:"fixed", pointerEvents:"none", background:"rgba(0,0,0,0.75)", color:"#fff", padding:"6px 8px", borderRadius:"6px", fontSize:12, opacity:0, zIndex:50}} />
           </div>
-          <div className="text-xs text-slate-600 mt-2 px-3 pb-3">Format: {'{country, year, religion, shareIndex}'}. Country can be ISO3 (e.g., USA) or name (e.g., UNITED STATES).</div>
+          <div className="text-xs text-slate-600 mt-2 px-3 pb-3">Format: {'{country, year, religion, shareIndex}'}. Country can be ISO3 (e.g., USA) or uppercase name.</div>
         </div>
       </div>
     </Card>
@@ -809,7 +686,7 @@ function GlobalCountsView(){
         <Stat label="Religion dist rows" value={religionDist.length} />
         <Stat label="Legal cases" value={legalCases.length} />
       </div>
-      <div className="text-xs text-slate-500 mt-2">Counts reflect currently loaded datasets.</div>
+      <div className="text-xs text-slate-500 mt-2">Counts reflect embedded datasets.</div>
     </Card>
   );
 }
@@ -822,16 +699,9 @@ function Stat({label, value}){ return (
 
 /* ============================== LEGAL CASES VIEW ============================== */
 function LegalCasesView(){
-  const { legalCases, setLegalCases } = useData();
-  function onImport(e){
-    if(!isAdmin()) return;
-    const f = e.target.files[0]; if(!f) return; const r = new FileReader();
-    r.onload = (ev)=>{ try{ const arr = JSON.parse(ev.target.result); if(Array.isArray(arr)){ setLegalCases(arr); alert("Legal cases imported: "+arr.length); } else { throw new Error("Expected array"); } } catch(err){ alert("Parse error: "+err.message); } };
-    r.readAsText(f);
-  }
-
+  const { legalCases } = useData();
   return (
-    <Card title="Religious Legal Landscape" right={isAdmin() && <input type="file" accept="application/json" onChange={onImport} title="Import legal cases JSON" /> }>
+    <Card title="Religious Legal Landscape">
       <table className="w-full text-sm">
         <thead>
           <tr className="text-left border-b"><th className="py-2">Group</th><th>Country</th><th>Year</th><th>Type</th><th>Outcome</th></tr>
@@ -847,7 +717,7 @@ function LegalCasesView(){
             </tr>
           ))}
           {legalCases.length===0 && (
-            <tr><td colSpan="5" className="py-6 text-center text-slate-500">No rows yet — add <code>public/data/legal_cases.template.json</code> or import a file (admin only)</td></tr>
+            <tr><td colSpan="5" className="py-6 text-center text-slate-500">No rows yet — add rows to <code>src/data/legal_cases.json</code>.</td></tr>
           )}
         </tbody>
       </table>

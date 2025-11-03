@@ -1,0 +1,10 @@
+[
+  {
+    "id": "c1",
+    "topic": "Creation order",
+    "verseA": { "ref": "Genesis 1:24-27", "book": "Genesis", "canon": "Bible" },
+    "verseB": { "ref": "Genesis 2:18-19", "book": "Genesis", "canon": "Bible" },
+    "summary": "Humans after animals vs man before animals.",
+    "detail": "Genesis 1 sequences animals→humans; Genesis 2 narrates man then animals brought to him."
+  }
+]
