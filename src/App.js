@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+﻿import React, { useEffect, useMemo, useRef, useState } from "react";
 // Single-file React app (CRA compatible)
 // Visualizer for contradictions, science issues, world religions, global counts, legal cases.
 // NEW: auto-load datasets from /public/data on startup; admin-only import in Network/Religions/Legal views.
@@ -95,7 +95,7 @@ function isAdmin() {
 /* ============================== DATA SEEDS ============================== */
 // Minimal seeds; app prefers external files if provided in /public/data
 const CONTRADICTIONS_SEED = [
-  { id: "c1", topic: "Creation order", verseA: { ref: "Genesis 1:24-27", book: "Genesis", canon: "Bible" }, verseB: { ref: "Genesis 2:18-19", book: "Genesis", canon: "Bible" }, summary: "Humans after animals vs man before animals.", detail: "Genesis 1 sequences animals→humans; Genesis 2 narrates man then animals brought to him." },
+  { id: "c1", topic: "Creation order", verseA: { ref: "Genesis 1:24-27", book: "Genesis", canon: "Bible" }, verseB: { ref: "Genesis 2:18-19", book: "Genesis", canon: "Bible" }, summary: "Humans after animals vs man before animals.", detail: "Genesis 1 sequences animalsâ†’humans; Genesis 2 narrates man then animals brought to him." },
   { id: "c2", topic: "Seeing God", verseA: { ref: "Exodus 33:20", book: "Exodus", canon: "Bible" }, verseB: { ref: "Genesis 32:30", book: "Genesis", canon: "Bible" }, summary: "No one can see God and live vs Jacob saw God face to face.", detail: "Theophany vs prohibition in doctrinal claim." }
 ];
 
@@ -266,7 +266,7 @@ function NetworkView() {
             <option value="all">All corpora</option>
             <option value="Bible">Bible</option>
             <option value="BoM">Book of Mormon</option>
-            <option value="Cross">Bible ↔ BoM</option>
+            <option value="Cross">Bible â†” BoM</option>
           </select>
           <select value={timeline} onChange={(e)=>setTimeline(e.target.value)} className="border rounded p-1">
             <option value="all">All timeline</option>
@@ -283,7 +283,7 @@ function NetworkView() {
       {selected && (
         <div className="mt-3 p-3 border rounded-lg bg-slate-50">
           <div className="font-semibold">{selected.topic}</div>
-          <div className="text-sm">{selected.verseA?.ref} ↔ {selected.verseB?.ref}</div>
+          <div className="text-sm">{selected.verseA?.ref} â†” {selected.verseB?.ref}</div>
           <div className="text-sm mt-1">{selected.summary}</div>
           {selected.detail && <div className="text-xs mt-1 text-slate-600">{selected.detail}</div>}
         </div>
@@ -328,7 +328,7 @@ function ImmoralityView(){
         <div className="border rounded-lg p-3">
           <div className="font-semibold mb-2">Items</div>
           <ul className="list-disc pl-5 space-y-1">
-            {rows.map(r=> <li key={r.id}><span className="font-medium">{r.category}</span> — {r.ref} {r.commanded?"(commanded)":""} <span className="text-slate-500">{r.note}</span></li>)}
+            {rows.map(r=> <li key={r.id}><span className="font-medium">{r.category}</span> â€” {r.ref} {r.commanded?"(commanded)":""} <span className="text-slate-500">{r.note}</span></li>)}
           </ul>
         </div>
         <div className="border rounded-lg p-3">
@@ -408,8 +408,8 @@ function ReligionsView(){
           <ExpandableTree data={tree} />
         </div>
         <div className="border rounded-lg p-3">
-          <div className="font-semibold mb-2">Distribution (sample) — rows loaded: {dist.length}</div>
-          <div className="text-xs text-slate-600">Hook this to a choropleth/timeline if desired. Format: {{country, year, religion, shareIndex}}</div>
+          <div className="font-semibold mb-2">Distribution (sample) â€” rows loaded: {dist.length}</div>
+          <div className="text-xs text-slate-600">Hook this to a choropleth/timeline if desired. Format: {<code>{'{country, year, religion, shareIndex}'}</code>}</div>
         </div>
       </div>
     </Card>
@@ -427,7 +427,7 @@ function ExpandableTree({ data }){
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="font-medium">{n.name} <span className="text-xs text-slate-500">({n.family})</span></div>
-                <div className="text-xs">Text: {n.text} • Core tenets: {Array.isArray(n.coreTenets)? n.coreTenets.join(", ") : "-"}</div>
+                <div className="text-xs">Text: {n.text} â€¢ Core tenets: {Array.isArray(n.coreTenets)? n.coreTenets.join(", ") : "-"}</div>
                 <div className="text-xs text-slate-500">Approx adherents (M): {n.adherentsM ?? "-"}</div>
               </div>
               {Array.isArray(n.subgroups) && n.subgroups.length>0 && (
@@ -438,7 +438,7 @@ function ExpandableTree({ data }){
             </div>
             {isOpen && (
               <ul className="mt-2 pl-5 list-disc text-sm">
-                {n.subgroups.map((s,i)=> <li key={i}>{s.name} {s.adherentsM?`— ${s.adherentsM}M`:""}</li>)}
+                {n.subgroups.map((s,i)=> <li key={i}>{s.name} {s.adherentsM?`â€” ${s.adherentsM}M`:""}</li>)}
               </ul>
             )}
           </li>
@@ -512,7 +512,7 @@ function LegalCasesView(){
             </tr>
           ))}
           {rows.length===0 && (
-            <tr><td colSpan="5" className="py-6 text-center text-slate-500">No rows yet — add <code>public/data/legal_cases.template.json</code> or import a file (admin only)</td></tr>
+            <tr><td colSpan="5" className="py-6 text-center text-slate-500">No rows yet â€” add <code>public/data/legal_cases.template.json</code> or import a file (admin only)</td></tr>
           )}
         </tbody>
       </table>
@@ -525,4 +525,6 @@ function InstallHint({ installed, error, pkg }){
   if (installed) return null;
   return <span className="text-xs text-red-600">d3 failed: {error}. Run: <code>npm install {pkg}</code></span>;
 }
+
+
 
