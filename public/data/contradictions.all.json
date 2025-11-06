@@ -1,4 +1,25 @@
 ﻿[
-  { "id":"c1","topic":"Creation order","verseA":{"ref":"Genesis 1:24-27","book":"Genesis","canon":"Bible"},"verseB":{"ref":"Genesis 2:18-19","book":"Genesis","canon":"Bible"},"summary":"Humans after animals vs man before animals.","detail":"Genesis 1 sequences animals→humans; Genesis 2 narrates man then animals." },
-  { "id":"c2","topic":"Seeing God","verseA":{"ref":"Exodus 33:20","book":"Exodus","canon":"Bible"},"verseB":{"ref":"Genesis 32:30","book":"Genesis","canon":"Bible"},"summary":"No one can see God and live vs Jacob saw God.","detail":"Different source traditions." }
+  {"id":"c001","topic":"Creation order","verseA":{"ref":"Genesis 1:24-27","book":"Genesis","canon":"Bible"},"verseB":{"ref":"Genesis 2:18-19","book":"Genesis","canon":"Bible"},"summary":"Humans after animals vs man before animals.","detail":"Gen 1: animals→humans; Gen 2: man then animals."},
+  {"id":"c002","topic":"Seeing God","verseA":{"ref":"Exodus 33:20","book":"Exodus","canon":"Bible"},"verseB":{"ref":"Genesis 32:30","book":"Genesis","canon":"Bible"},"summary":"No one can see God vs Jacob saw God.","detail":""},
+  {"id":"c003","topic":"God changes mind","verseA":{"ref":"Numbers 23:19","book":"Numbers","canon":"Bible"},"verseB":{"ref":"Exodus 32:14","book":"Exodus","canon":"Bible"},"summary":"God does not repent vs God relented.","detail":""},
+  {"id":"c004","topic":"God’s anger duration","verseA":{"ref":"Micah 7:18","book":"Micah","canon":"Bible"},"verseB":{"ref":"Jeremiah 17:4","book":"Jeremiah","canon":"Bible"},"summary":"Not forever vs forever.","detail":""},
+  {"id":"c005","topic":"Righteous exist vs none righteous","verseA":{"ref":"Ezekiel 18:9","book":"Ezekiel","canon":"Bible"},"verseB":{"ref":"Romans 3:10","book":"Romans","canon":"Bible"},"summary":"Righteous live vs none righteous.","detail":""},
+  {"id":"c006","topic":"David’s census instigator","verseA":{"ref":"2 Samuel 24:1","book":"2 Samuel","canon":"Bible"},"verseB":{"ref":"1 Chronicles 21:1","book":"1 Chronicles","canon":"Bible"},"summary":"LORD incited vs Satan incited.","detail":""},
+  {"id":"c007","topic":"God tempts / tests","verseA":{"ref":"Genesis 22:1","book":"Genesis","canon":"Bible"},"verseB":{"ref":"James 1:13","book":"James","canon":"Bible"},"summary":"God tested Abraham vs God tempts no one.","detail":""},
+  {"id":"c008","topic":"Seeing God (Moses)","verseA":{"ref":"Exodus 33:11","book":"Exodus","canon":"Bible"},"verseB":{"ref":"Exodus 33:20","book":"Exodus","canon":"Bible"},"summary":"Face to face vs cannot see.","detail":""},
+  {"id":"c009","topic":"God’s dwelling","verseA":{"ref":"1 Kings 8:12","book":"1 Kings","canon":"Bible"},"verseB":{"ref":"1 Kings 8:27","book":"1 Kings","canon":"Bible"},"summary":"Dwells in darkness vs cannot be contained.","detail":""},
+  {"id":"c010","topic":"Sabbath burdens","verseA":{"ref":"Exodus 12:16","book":"Exodus","canon":"Bible"},"verseB":{"ref":"Jeremiah 17:21-22","book":"Jeremiah","canon":"Bible"},"summary":"Some work vs strict no-carrying.","detail":""},
+
+  {"id":"c011","topic":"God is author of confusion?","verseA":{"ref":"1 Corinthians 14:33","book":"1 Corinthians","canon":"Bible"},"verseB":{"ref":"Genesis 11:7-9","book":"Genesis","canon":"Bible"},"summary":"God not of confusion vs God confused languages.","detail":""},
+  {"id":"c012","topic":"Answer a fool","verseA":{"ref":"Proverbs 26:4","book":"Proverbs","canon":"Bible"},"verseB":{"ref":"Proverbs 26:5","book":"Proverbs","canon":"Bible"},"summary":"Do not answer vs answer a fool.","detail":""},
+  {"id":"c013","topic":"God sees all vs hides","verseA":{"ref":"Proverbs 15:3","book":"Proverbs","canon":"Bible"},"verseB":{"ref":"Genesis 18:21","book":"Genesis","canon":"Bible"},"summary":"Eyes in every place vs go down to see.","detail":""},
+  {"id":"c014","topic":"Bear one another vs each his own","verseA":{"ref":"Galatians 6:2","book":"Galatians","canon":"Bible"},"verseB":{"ref":"Galatians 6:5","book":"Galatians","canon":"Bible"},"summary":"Bear one another’s burdens vs each bears own load.","detail":""},
+  {"id":"c015","topic":"Justified by faith vs works","verseA":{"ref":"Romans 3:28","book":"Romans","canon":"Bible"},"verseB":{"ref":"James 2:24","book":"James","canon":"Bible"},"summary":"Justified by faith apart from works vs justified by works.","detail":""},
+  {"id":"c016","topic":"God is peace vs warlike","verseA":{"ref":"Romans 15:33","book":"Romans","canon":"Bible"},"verseB":{"ref":"Exodus 15:3","book":"Exodus","canon":"Bible"},"summary":"God of peace vs man of war.","detail":""},
+  {"id":"c017","topic":"Jesus’ genealogy (father of Joseph)","verseA":{"ref":"Matthew 1:16","book":"Matthew","canon":"Bible"},"verseB":{"ref":"Luke 3:23","book":"Luke","canon":"Bible"},"summary":"Jacob vs Heli.","detail":""},
+  {"id":"c018","topic":"Number at Jairus’ daughter","verseA":{"ref":"Matthew 9:18","book":"Matthew","canon":"Bible"},"verseB":{"ref":"Mark 5:23","book":"Mark","canon":"Bible"},"summary":"Already dead vs near death.","detail":""},
+  {"id":"c019","topic":"Number of angels at tomb","verseA":{"ref":"Matthew 28:2-5","book":"Matthew","canon":"Bible"},"verseB":{"ref":"John 20:12","book":"John","canon":"Bible"},"summary":"One angel vs two.","detail":""},
+  {"id":"c020","topic":"Women at the tomb list variance","verseA":{"ref":"Mark 16:1","book":"Mark","canon":"Bible"},"verseB":{"ref":"John 20:1-2","book":"John","canon":"Bible"},"summary":"Different names reported.","detail":""}
+
+  /* add many more rows here any time; the app will pick them up */
 ]
