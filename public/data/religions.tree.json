@@ -1,0 +1,8 @@
+﻿[
+  { "name":"Christianity","family":"Abrahamic","text":"Bible","coreTenets":["Trinity","Incarnation","Resurrection"],"adherentsM":2400,"subgroups":[{"name":"Catholic","adherentsM":1300},{"name":"Protestant","adherentsM":900},{"name":"Orthodox","adherentsM":260}] },
+  { "name":"Islam","family":"Abrahamic","text":"Quran","coreTenets":["Tawhid","Prophethood","Five Pillars"],"adherentsM":1900,"subgroups":[{"name":"Sunni","adherentsM":1600},{"name":"Shia","adherentsM":250}] },
+  { "name":"LDS","family":"Restorationist","text":"Bible & Book of Mormon","coreTenets":["Restoration","Additional scripture","Ordinances"],"adherentsM":17 },
+  { "name":"Atheist","family":"Unaffiliated","text":"-","coreTenets":["No deity"],"adherentsM":450 },
+  { "name":"Agnostic","family":"Unaffiliated","text":"-","coreTenets":["Knowledge uncertain"],"adherentsM":600 },
+  { "name":"Jedi","family":"Novelty","text":"-","coreTenets":["Pop-culture spirituality"],"adherentsM":0.5 }
+]

@@ -1,0 +1,4 @@
+﻿[
+  { "id":"s1","story":"Global flood vs geology","refs":["Genesis 6-9"],"summary":"Universal flood vs continuous records.","mechanisms":{"laws":["Geology","Sedimentology"],"why":["No single flood stratum worldwide."],"observations":["Ice cores continuous >100k years."]} },
+  { "id":"s2","story":"Flat Earth language","refs":["Psalm 104:5"],"summary":"Earth immovable vs heliocentrism.","mechanisms":{"laws":["Classical mechanics"],"why":["Earth rotates and orbits the sun."],"observations":["Foucault, Coriolis."]} }
+]
